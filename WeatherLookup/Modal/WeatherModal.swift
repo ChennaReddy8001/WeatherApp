@@ -16,8 +16,13 @@ struct Weather : Decodable, Equatable {
 struct WeatherObject : Decodable, Equatable {
     let weather : [WeatherData]?
     let main : Main?
+    let dt_txt : String
 }
 
+extension WeatherObject {
+    public var dateString : String { return dt_txt}
+    public var dateInDateFormat : Date {return dateString.toDate() ?? Date()}
+}
 
 struct Main : Decodable, Equatable {
     
@@ -56,3 +61,5 @@ extension WeatherObject {
         return String(main?.humidity ?? 0)
     }
 }
+
+

@@ -12,7 +12,7 @@ class CityWeatherDetailsVM {
     
     var dataManager = DataManager()
     var selectedLocation : Location!
-    var dataArray: [WeatherObject] = []
+    var dataArray: [[WeatherObject]] = [[]]
         
     func getWeatherInfoForTheSelectedLocation(completionHandler: @escaping () -> Void){
         
@@ -21,8 +21,8 @@ class CityWeatherDetailsVM {
                 completionHandler()
                 return
             }
-            
-            self?.dataArray = weahterInfo.list ?? []
+            let dataArray = weahterInfo.list ?? []
+            self?.dataArray = dataArray.groupSort(byDate: { $0.dateInDateFormat })
             completionHandler()
             
         }
