@@ -10,9 +10,11 @@ import UIKit
 class CityDetailsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var selectedLocation : Location?
     var cityDetailsVM : CityWeatherDetailsVM = CityWeatherDetailsVM()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,12 +26,19 @@ class CityDetailsVC: UIViewController {
         
         addSettingsBarButtonItem()
         getDataForTheSelectedLocation()
+        registerNib()
         
     }
     
+    private func  registerNib() {
+        tableView.register(UINib(nibName: WeatherInfoCell.identifier, bundle: nil), forCellReuseIdentifier: WeatherInfoCell.identifier)
+    }
+    
     func getDataForTheSelectedLocation(){
+        activityIndicator.startAnimating()
         cityDetailsVM.getWeatherInfoForTheSelectedLocation(completionHandler: {
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 self.tableView.reloadData()
             }
         })
@@ -70,15 +79,13 @@ extension CityDetailsVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let  cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoCell.identifier, for: indexPath) as? WeatherInfoCell else { return UITableViewCell() }
         
         if cityDetailsVM.dataArray.count > indexPath.section {
             let array = cityDetailsVM.dataArray[indexPath.section] as [WeatherObject]
             let weatherObject = array[indexPath.row] as WeatherObject
-            cell.textLabel?.text = weatherObject.temparature
-            cell.detailTextLabel?.text = weatherObject.humidity
-            print(weatherObject.dateString)
-            print(weatherObject.dateInDateFormat)
+            cell.dateAndTimeTextLabel.text = weatherObject.dateString
+            cell.configureCellWithWeathInfo(weatherObject: weatherObject)
         }else{
             cell.textLabel?.text = "No details are available."
         }
@@ -92,7 +99,7 @@ extension CityDetailsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
+        return  cityDetailsVM.dataArray.count > 0 ? 50 : 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

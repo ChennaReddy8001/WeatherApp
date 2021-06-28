@@ -82,12 +82,21 @@
                                     <outlet property="delegate" destination="sXA-jS-vDs" id="iPH-kX-ahU"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="GzG-QY-u2f">
+                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="414" id="04N-ix-oGi"/>
+                                    <constraint firstAttribute="height" constant="44" id="kfX-HF-noD"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uWS-kb-Yk1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dbo-Fl-6Rr" firstAttribute="leading" secondItem="uWS-kb-Yk1" secondAttribute="leading" id="217-m8-cKe"/>
+                            <constraint firstItem="GzG-QY-u2f" firstAttribute="centerX" secondItem="zEr-I5-1Mt" secondAttribute="centerX" id="CUn-uE-uKe"/>
                             <constraint firstItem="dbo-Fl-6Rr" firstAttribute="trailing" secondItem="uWS-kb-Yk1" secondAttribute="trailing" id="HDb-dg-ZYy"/>
+                            <constraint firstItem="GzG-QY-u2f" firstAttribute="centerY" secondItem="zEr-I5-1Mt" secondAttribute="centerY" id="JHg-o8-fGL"/>
                             <constraint firstAttribute="bottom" secondItem="dbo-Fl-6Rr" secondAttribute="bottom" id="be4-db-IPK"/>
                             <constraint firstItem="dbo-Fl-6Rr" firstAttribute="top" secondItem="zEr-I5-1Mt" secondAttribute="top" id="gpo-Qt-Qew"/>
                         </constraints>
@@ -95,6 +104,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="GzG-QY-u2f" id="zFh-Ar-1T3"/>
                         <outlet property="tableView" destination="dbo-Fl-6Rr" id="zpP-Qp-75p"/>
                     </connections>
                 </viewController>

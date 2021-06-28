@@ -16,12 +16,9 @@ struct Weather : Decodable, Equatable {
 struct WeatherObject : Decodable, Equatable {
     let weather : [WeatherData]?
     let main : Main?
+    let wind : Wind?
+    
     let dt_txt : String
-}
-
-extension WeatherObject {
-    public var dateString : String { return dt_txt}
-    public var dateInDateFormat : Date {return dateString.toDate() ?? Date()}
 }
 
 struct Main : Decodable, Equatable {
@@ -38,8 +35,22 @@ struct Main : Decodable, Equatable {
     
 }
 
+struct Wind : Decodable, Equatable {
+    
+    let speed : Float?
+    let deg : Int?
+    let gust : Float?
 
-struct WeatherData : Codable, Equatable {
+    enum CodingKeys: String, CodingKey {
+        case speed = "speed"
+        case deg = "deg"
+        case gust = "gust"
+    }
+    
+}
+
+
+struct WeatherData : Decodable, Equatable {
     
     let main : String?
     let description : String?
@@ -51,8 +62,10 @@ struct WeatherData : Codable, Equatable {
     
 }
 
+
 extension WeatherObject {
-    
+    public var dateString : String { return dt_txt}
+    public var dateInDateFormat : Date {return dateString.toDate() ?? Date()}
     public var temparature : String {
         return String(main?.temp ?? 0)
     }
@@ -60,6 +73,21 @@ extension WeatherObject {
     public var humidity : String {
         return String(main?.humidity ?? 0)
     }
+    
+    public var windInfo : String {
+        return String(wind?.speed ?? 0.0)
+    }
+    
+    
+    public var rainChances : String {
+        
+        if weather?.count ?? 0 > 0 {
+            if let weather = weather?[0] {
+                return weather.main ?? ""
+            }
+        }
+        return ""
+        
+    }
+
 }
-
-
