@@ -13,6 +13,16 @@ class CityDetailsVC: UIViewController {
         super.viewDidLoad()
 
         self.title = "City Details"
+        
+        //For righter button item
+        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsButtonAction))
+        self.navigationItem.rightBarButtonItem = settingsButton
+
+    }
+    
+    @objc func settingsButtonAction() {
+        let settingsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsVC")
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
 }
 

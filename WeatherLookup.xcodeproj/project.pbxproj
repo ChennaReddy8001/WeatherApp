@@ -115,10 +115,10 @@
 		B5FEF03026872F2400615D9D /* WeatherLookup */ = {
 			isa = PBXGroup;
 			children = (
-				B5FEF06926872F6A00615D9D /* Modal */,
-				B5FEF06826872F6000615D9D /* VM */,
 				B5FEF03126872F2400615D9D /* AppDelegate.swift */,
 				B5FEF03326872F2400615D9D /* SceneDelegate.swift */,
+				B5FEF06926872F6A00615D9D /* Modal */,
+				B5FEF06826872F6000615D9D /* VM */,
 				B5FEF06726872F4600615D9D /* View */,
 				B5FEF03D26872F2700615D9D /* Assets.xcassets */,
 				B5FEF03F26872F2700615D9D /* LaunchScreen.storyboard */,

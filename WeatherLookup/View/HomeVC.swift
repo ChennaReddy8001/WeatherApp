@@ -15,6 +15,16 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         
         self.title = "Home"
+        
+        tableView.tableFooterView =  UIView()
+        tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(DataModel.shared.selctedLocations)
+        tableView.reloadData()
     }
     
     @IBAction func helpButtonAction(_ sender: Any) {
@@ -27,14 +37,8 @@ class HomeVC: UIViewController {
         
         let addLocationVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddLocationVC")
         navigationController?.pushViewController(addLocationVC, animated: true)
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(DataModel.shared.selctedLocations)
-        tableView.reloadData()
-    }
 }
 
 
@@ -44,21 +48,48 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return DataModel.shared.selctedLocations.count > 0 ? true : false
+    }
+    
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+           DataModel.shared.selctedLocations.remove(at: indexPath.row)
+            if DataModel.shared.selctedLocations.count > 0 {
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }else{
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataModel.shared.selctedLocations.count
+        return DataModel.shared.selctedLocations.count > 0 ?  DataModel.shared.selctedLocations.count : 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let  cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
-         
-        let location = DataModel.shared.selctedLocations[indexPath.row]
-        cell.textLabel?.text = location.address
-
+        
+        if DataModel.shared.selctedLocations.count > indexPath.row {
+            let location = DataModel.shared.selctedLocations[indexPath.row]
+            cell.textLabel?.text = location.address
+        }else{
+            cell.textLabel?.text = "Please add location by clicking on + symbol"
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cityDetailsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CityDetailsVC")
-        navigationController?.pushViewController(cityDetailsVC, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        if DataModel.shared.selctedLocations.count > indexPath.row {
+            let cityDetailsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CityDetailsVC")
+            navigationController?.pushViewController(cityDetailsVC, animated: true)
+        }
     }
 }
