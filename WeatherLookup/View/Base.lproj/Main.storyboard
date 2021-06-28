@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tde-H9-Y80">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Nwh-24-e5M">
+            <objects>
+                <navigationController id="tde-H9-Y80" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ty5-uG-8YO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZGa-Cl-psg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ltl-8i-CZv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1681" y="-145"/>
+        </scene>
+        <!--HomeVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeVC" customModule="WeatherLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TLI-Wg-l1v">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="vIO-bT-CVt"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3dE-Le-ldx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yE3-Yy-0DI">
+                        <barButtonItem key="leftBarButtonItem" title="Help" id="Ipp-bK-Rfd">
+                            <connections>
+                                <action selector="helpButtonAction:" destination="BYZ-38-t0r" id="bmW-9i-OGT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zCY-rp-utR">
+                            <connections>
+                                <action selector="addNewLocatonAction:" destination="BYZ-38-t0r" id="QhC-Br-D7w"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="TLI-Wg-l1v" id="k7Q-G9-3Y5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-833.33333333333337" y="-145.3125"/>
+        </scene>
+        <!--City DetailsVC-->
+        <scene sceneID="wcn-Ru-ZOT">
+            <objects>
+                <viewController storyboardIdentifier="CityDetailsVC" id="sXA-jS-vDs" customClass="CityDetailsVC" customModule="WeatherLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zEr-I5-1Mt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="uWS-kb-Yk1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qTl-8g-FsL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="609" y="-157"/>
+        </scene>
+        <!--Add LocationVC-->
+        <scene sceneID="xrD-kA-cZ0">
+            <objects>
+                <viewController storyboardIdentifier="AddLocationVC" id="vmX-4Q-AXo" customClass="AddLocationVC" customModule="WeatherLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B1y-ok-oRt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EXw-NL-35v">
+                                <rect key="frame" x="0.0" y="34" width="414" height="862"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vmX-4Q-AXo" id="edY-mY-nXY"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lFj-6p-u0W"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EXw-NL-35v" firstAttribute="trailing" secondItem="lFj-6p-u0W" secondAttribute="trailing" id="4gI-Mh-PA0"/>
+                            <constraint firstAttribute="bottom" secondItem="EXw-NL-35v" secondAttribute="bottom" id="5ab-BA-8Vc"/>
+                            <constraint firstItem="EXw-NL-35v" firstAttribute="top" secondItem="B1y-ok-oRt" secondAttribute="top" constant="34" id="CxL-PK-DzJ"/>
+                            <constraint firstItem="EXw-NL-35v" firstAttribute="leading" secondItem="lFj-6p-u0W" secondAttribute="leading" id="z7p-2B-2E6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="EXw-NL-35v" id="MBZ-rh-RhD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egy-uQ-XTl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-123.18840579710145" y="-145.3125"/>
+        </scene>
+        <!--HelpVC-->
+        <scene sceneID="rhu-If-xVG">
+            <objects>
+                <viewController storyboardIdentifier="HelpVC" id="iPR-hR-fbk" customClass="HelpVC" customModule="WeatherLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O7i-W2-3GN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgY-Il-tbN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="elI-yn-IQ7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hgY-Il-tbN" firstAttribute="top" secondItem="O7i-W2-3GN" secondAttribute="top" id="4PF-T7-xrj"/>
+                            <constraint firstItem="hgY-Il-tbN" firstAttribute="trailing" secondItem="elI-yn-IQ7" secondAttribute="trailing" id="6VF-HQ-aub"/>
+                            <constraint firstAttribute="bottom" secondItem="hgY-Il-tbN" secondAttribute="bottom" id="cT0-2P-9dY"/>
+                            <constraint firstItem="hgY-Il-tbN" firstAttribute="leading" secondItem="elI-yn-IQ7" secondAttribute="leading" id="oPL-FI-cOx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="hgY-Il-tbN" id="G5N-RA-HoV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jyq-E1-Zbs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1442.0289855072465" y="-157.36607142857142"/>
+        </scene>
+        <!--SettingsVC-->
+        <scene sceneID="cnL-uw-Zax">
+            <objects>
+                <viewController storyboardIdentifier="SettingsVC" id="2g7-K1-FWz" customClass="SettingsVC" customModule="WeatherLookup" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dcA-rq-OwG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="cT2-NT-Bsc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vcp-VY-1Vo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2228" y="-145"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
