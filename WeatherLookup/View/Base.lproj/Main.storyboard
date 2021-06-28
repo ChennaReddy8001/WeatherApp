@@ -73,15 +73,34 @@
                     <view key="view" contentMode="scaleToFill" id="zEr-I5-1Mt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dbo-Fl-6Rr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="sXA-jS-vDs" id="2eI-h1-zjQ"/>
+                                    <outlet property="delegate" destination="sXA-jS-vDs" id="iPH-kX-ahU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="uWS-kb-Yk1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dbo-Fl-6Rr" firstAttribute="leading" secondItem="uWS-kb-Yk1" secondAttribute="leading" id="217-m8-cKe"/>
+                            <constraint firstItem="dbo-Fl-6Rr" firstAttribute="trailing" secondItem="uWS-kb-Yk1" secondAttribute="trailing" id="HDb-dg-ZYy"/>
+                            <constraint firstAttribute="bottom" secondItem="dbo-Fl-6Rr" secondAttribute="bottom" id="be4-db-IPK"/>
+                            <constraint firstItem="dbo-Fl-6Rr" firstAttribute="top" secondItem="zEr-I5-1Mt" secondAttribute="top" id="gpo-Qt-Qew"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="dbo-Fl-6Rr" id="zpP-Qp-75p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qTl-8g-FsL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="609" y="-157"/>
+            <point key="canvasLocation" x="608.69565217391312" y="-157.36607142857142"/>
         </scene>
         <!--Add LocationVC-->
         <scene sceneID="xrD-kA-cZ0">

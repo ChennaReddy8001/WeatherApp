@@ -23,6 +23,8 @@
 		B5FEF08D268732D800615D9D /* WeatherModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF08C268732D800615D9D /* WeatherModal.swift */; };
 		B5FEF0952687354600615D9D /* AddLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF0942687354600615D9D /* AddLocationVC.swift */; };
 		B5FEF09F2687461500615D9D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF09E2687461500615D9D /* Location.swift */; };
+		B5FEF0D82689D0A200615D9D /* CityWeatherDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF0D72689D0A200615D9D /* CityWeatherDetailsVM.swift */; };
+		B5FEF0DE2689D0D800615D9D /* NetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF0DD2689D0D800615D9D /* NetworkDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		B5FEF08C268732D800615D9D /* WeatherModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModal.swift; sourceTree = "<group>"; };
 		B5FEF0942687354600615D9D /* AddLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationVC.swift; sourceTree = "<group>"; };
 		B5FEF09E2687461500615D9D /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B5FEF0D72689D0A200615D9D /* CityWeatherDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherDetailsVM.swift; sourceTree = "<group>"; };
+		B5FEF0DD2689D0D800615D9D /* NetworkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				B5FEF0872687327700615D9D /* HomeVM.swift */,
+				B5FEF0D72689D0A200615D9D /* CityWeatherDetailsVM.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -170,10 +175,19 @@
 		B5FEF06926872F6A00615D9D /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				B5FEF0DC2689D0B300615D9D /* NetworkDataManager */,
 				B5FEF08C268732D800615D9D /* WeatherModal.swift */,
 				B5FEF09E2687461500615D9D /* Location.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		B5FEF0DC2689D0B300615D9D /* NetworkDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				B5FEF0DD2689D0D800615D9D /* NetworkDataManager.swift */,
+			);
+			path = NetworkDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,9 +327,11 @@
 				B5FEF0952687354600615D9D /* AddLocationVC.swift in Sources */,
 				B5FEF06B26872F9A00615D9D /* CityDetailsVC.swift in Sources */,
 				B5FEF0882687327700615D9D /* HomeVM.swift in Sources */,
+				B5FEF0D82689D0A200615D9D /* CityWeatherDetailsVM.swift in Sources */,
 				B5FEF07926872FFB00615D9D /* HelpVC.swift in Sources */,
 				B5FEF03226872F2400615D9D /* AppDelegate.swift in Sources */,
 				B5FEF03426872F2400615D9D /* SceneDelegate.swift in Sources */,
+				B5FEF0DE2689D0D800615D9D /* NetworkDataManager.swift in Sources */,
 				B5FEF07E2687300700615D9D /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

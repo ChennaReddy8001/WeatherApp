@@ -22,11 +22,13 @@ struct WeatherObject : Decodable, Equatable {
 struct Main : Decodable, Equatable {
     
     let temp : Float?
+    let humidity : Int?
     let feels_like : Float?
 
     enum CodingKeys: String, CodingKey {
         case temp = "temp"
         case feels_like = "feels_like"
+        case humidity = "humidity"
     }
     
 }
@@ -42,4 +44,15 @@ struct WeatherData : Codable, Equatable {
         case description = "description"
     }
     
+}
+
+extension WeatherObject {
+    
+    public var temparature : String {
+        return String(main?.temp ?? 0)
+    }
+    
+    public var humidity : String {
+        return String(main?.humidity ?? 0)
+    }
 }

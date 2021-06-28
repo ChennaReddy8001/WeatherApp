@@ -36,6 +36,14 @@ extension Location: MKAnnotation {
     public var title: String? {
         return name ?? address
     }
+    
+    public var latitude: String {
+        return String(self.location.coordinate.latitude) 
+    }
+    
+    public var longitude: String {
+        return String(self.location.coordinate.longitude) 
+    }
 }
 
 extension CLPlacemark {

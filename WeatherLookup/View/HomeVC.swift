@@ -88,8 +88,11 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
         if DataModel.shared.selctedLocations.count > indexPath.row {
-            let cityDetailsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CityDetailsVC")
-            navigationController?.pushViewController(cityDetailsVC, animated: true)
+            let cityDetailsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CityDetailsVC") as? CityDetailsVC
+            let location =  DataModel.shared.selctedLocations[indexPath.row]
+            cityDetailsVC?.selectedLocation = location
+            cityDetailsVC?.cityDetailsVM = CityWeatherDetailsVM.init(with: location)
+            navigationController?.pushViewController(cityDetailsVC ?? CityDetailsVC(), animated: true)
         }
     }
 }
