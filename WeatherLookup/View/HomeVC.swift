@@ -10,7 +10,8 @@ import UIKit
 class HomeVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    var homeVM = HomeVM()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,12 +20,22 @@ class HomeVC: UIViewController {
         tableView.tableFooterView =  UIView()
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableView.automaticDimension
+        
+        homeVM.getAllLocations()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshData), name: NSNotification.Name(rawValue: "LocationAdded"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(DataModel.shared.selctedLocations)
-        tableView.reloadData()
+
+    }
+    
+     @objc func refreshData(){
+        DispatchQueue.main.async {
+            self.homeVM.getAllLocations()
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func helpButtonAction(_ sender: Any) {
@@ -53,13 +64,15 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return DataModel.shared.selctedLocations.count > 0 ? true : false
+        return homeVM.selctedLocations.count > 0 ? true : false
     }
     
     internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-           DataModel.shared.selctedLocations.remove(at: indexPath.row)
-            if DataModel.shared.selctedLocations.count > 0 {
+            let location = homeVM.selctedLocations[indexPath.row]
+            homeVM.removeLocationFromCoreData(location: location)
+             homeVM.selctedLocations.remove(at: indexPath.row)
+            if homeVM.selctedLocations.count > 0 {
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }else{
                 self.tableView.reloadData()
@@ -68,15 +81,15 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataModel.shared.selctedLocations.count > 0 ?  DataModel.shared.selctedLocations.count : 1
+        return homeVM.selctedLocations.count > 0 ? homeVM.selctedLocations.count : 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let  cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
         
-        if DataModel.shared.selctedLocations.count > indexPath.row {
-            let location = DataModel.shared.selctedLocations[indexPath.row]
-            cell.textLabel?.text = location.address
+        if homeVM.selctedLocations.count > indexPath.row {
+            let location = homeVM.selctedLocations[indexPath.row]
+            cell.textLabel?.text = location.locationAddress
         }else{
             cell.textLabel?.text = "Please add location by clicking on + symbol"
         }
@@ -87,9 +100,9 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        if DataModel.shared.selctedLocations.count > indexPath.row {
+        if homeVM.selctedLocations.count > indexPath.row {
             let cityDetailsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CityDetailsVC") as? CityDetailsVC
-            let location =  DataModel.shared.selctedLocations[indexPath.row]
+            let location =  homeVM.selctedLocations[indexPath.row]
             cityDetailsVC?.selectedLocation = location
             cityDetailsVC?.cityDetailsVM = CityWeatherDetailsVM.init(with: location)
             navigationController?.pushViewController(cityDetailsVC ?? CityDetailsVC(), animated: true)

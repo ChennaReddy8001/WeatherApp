@@ -120,8 +120,8 @@ extension AddLocationVC : MKMapViewDelegate {
     
     public func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         completion?(location)
-        
-        DataModel.shared.selctedLocations.append(self.location!)
+        let homeVM = HomeVM()
+        homeVM.addNewLocation(location: self.location!)
         if let navigation = navigationController, navigation.viewControllers.count > 1 {
             navigation.popViewController(animated: true)
         } else {

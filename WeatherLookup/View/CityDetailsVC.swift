@@ -12,13 +12,13 @@ class CityDetailsVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var selectedLocation : Location?
-    var cityDetailsVM : CityWeatherDetailsVM = CityWeatherDetailsVM()
+    var selectedLocation : LocationObject?
+    var cityDetailsVM  = CityWeatherDetailsVM()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = selectedLocation?.title
+        self.title = selectedLocation?.locationAddress
         
         tableView.tableFooterView =  UIView()
         tableView.estimatedRowHeight = 44.0

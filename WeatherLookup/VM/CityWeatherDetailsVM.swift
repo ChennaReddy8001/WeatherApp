@@ -11,7 +11,7 @@ import Foundation
 class CityWeatherDetailsVM {
     
     var dataManager = DataManager()
-    var selectedLocation : Location!
+    var selectedLocation : LocationObject!
     var dataArray: [[WeatherObject]] = [[]]
         
     func getWeatherInfoForTheSelectedLocation(completionHandler: @escaping () -> Void){
@@ -28,7 +28,7 @@ class CityWeatherDetailsVM {
         }
     }
     
-    convenience init(with location : Location) {
+    convenience init(with location : LocationObject) {
         self.init()
         selectedLocation = location
     }

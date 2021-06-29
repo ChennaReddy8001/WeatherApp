@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum ParsingError: Error {
     case invaidUrlError
@@ -30,13 +31,13 @@ class DataManager {
     let apiKey = "fae7190d7e6433ec3a45285ffcf55c86"
     var unitType = "metric"
     
-    private func getURLEndPath(location : Location) -> String {
-        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + location.latitude + "&lon=" + location.longitude + "&appid=" + apiKey + "&units=" + unitType
+    private func getURLEndPath(latitude : String, longitude : String) -> String {
+        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=" + unitType
     }
     
-    func fetchWeatherForecastInfo(location : Location,  completionHandler: @escaping (Weather?, ParsingError?) -> Void) {
+    func fetchWeatherForecastInfo(location : LocationObject,  completionHandler: @escaping (Weather?, ParsingError?) -> Void) {
         
-        let urlString = getURLEndPath(location: location)
+        let urlString = getURLEndPath(latitude: location.locationLatitude ?? "", longitude: location.locationLongitude ?? "")
         print(urlString)
         guard let addressURL = URL(string: urlString) else {
             completionHandler(nil, .invaidUrlError)
