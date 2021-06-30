@@ -11,6 +11,7 @@
 		B5498927268C4AB80034DFC2 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5498925268C4AB80034DFC2 /* HomeTableViewCell.xib */; };
 		B549897C268C7E930034DFC2 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549897B268C7E930034DFC2 /* DataManagerTests.swift */; };
 		B5498984268C92040034DFC2 /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5498983268C92030034DFC2 /* SettingsVM.swift */; };
+		B549898D268CB6500034DFC2 /* SettingsVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549898C268CB64F0034DFC2 /* SettingsVCTests.swift */; };
 		B5FEF03226872F2400615D9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF03126872F2400615D9D /* AppDelegate.swift */; };
 		B5FEF03426872F2400615D9D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF03326872F2400615D9D /* SceneDelegate.swift */; };
 		B5FEF03626872F2400615D9D /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FEF03526872F2400615D9D /* HomeVC.swift */; };
@@ -56,6 +57,7 @@
 		B5498925268C4AB80034DFC2 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		B549897B268C7E930034DFC2 /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
 		B5498983268C92030034DFC2 /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
+		B549898C268CB64F0034DFC2 /* SettingsVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVCTests.swift; sourceTree = "<group>"; };
 		B5FEF02E26872F2400615D9D /* WeatherLookup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherLookup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5FEF03126872F2400615D9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5FEF03326872F2400615D9D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				B5FEF04B26872F2800615D9D /* WeatherLookupTests.swift */,
+				B549898C268CB64F0034DFC2 /* SettingsVCTests.swift */,
 				B549897B268C7E930034DFC2 /* DataManagerTests.swift */,
 				B5FEF04D26872F2800615D9D /* Info.plist */,
 			);
@@ -384,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5FEF04C26872F2800615D9D /* WeatherLookupTests.swift in Sources */,
+				B549898D268CB6500034DFC2 /* SettingsVCTests.swift in Sources */,
 				B549897C268C7E930034DFC2 /* DataManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
