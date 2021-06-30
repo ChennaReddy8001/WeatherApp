@@ -10,12 +10,14 @@ import WebKit
 
 class HelpVC: UIViewController {
 
+    let navigatonBarTitle = "Help"
+
     @IBOutlet weak var webView: WKWebView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Help"
+        self.title = navigatonBarTitle
         
         loadWebView()
     }

@@ -9,6 +9,9 @@ import UIKit
 
 class CityDetailsVC: UIViewController {
     
+    let placeHolderTextForNoResultsCase = "No details are available."
+    let settingsButtonTitle = "Settings"
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -46,7 +49,7 @@ class CityDetailsVC: UIViewController {
     
     func addSettingsBarButtonItem(){
         //For righter button item
-        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsButtonAction))
+        let settingsButton = UIBarButtonItem(title: settingsButtonTitle , style: .plain, target: self, action: #selector(settingsButtonAction))
         self.navigationItem.rightBarButtonItem = settingsButton
     }
     
@@ -80,7 +83,7 @@ extension CityDetailsVC : UITableViewDelegate, UITableViewDataSource {
         if let object = cityDetailsVM.getWeatherObjectAtIndexPath(indexPath: indexPath){
             cell.configureCellWithWeathInfo(weatherObject: object)
         }else{
-            cell.textLabel?.text = "No details are available."
+            cell.textLabel?.text = placeHolderTextForNoResultsCase
         }
         
         return cell

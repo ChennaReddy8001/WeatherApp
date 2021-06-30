@@ -15,7 +15,7 @@ class CityWeatherDetailsVM {
         
     func getWeatherInfoForTheSelectedLocation(completionHandler: @escaping () -> Void){
         
-        dataManager.fetchWeatherForecastInfo(location: selectedLocation) { [weak self](weatherInfo, error) in
+        dataManager.fetchWeatherForecastInfo(latitude: selectedLocation.locationLatitude ?? "" , longitude: selectedLocation.locationLongitude ?? "") { [weak self](weatherInfo, error) in
             guard let weahterInfo = weatherInfo , error == nil else {
                 completionHandler()
                 return
