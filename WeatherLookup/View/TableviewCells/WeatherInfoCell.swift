@@ -15,7 +15,9 @@ class WeatherInfoCell: UITableViewCell {
     @IBOutlet weak var rainChancesValueLabel: UILabel!
     @IBOutlet weak var humidityValueLabel: UILabel!
     @IBOutlet weak var tempValuelLabel: UILabel!
+    
     static let identifier = "WeatherInfoCell"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

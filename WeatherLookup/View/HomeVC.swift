@@ -9,7 +9,8 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let emptyLocationText = "Please add location by clicking on + symbol"
+    let emptyLocationText = "Please add a location by clicking on the + symbol"
+    @IBOutlet weak var placeHolderTextLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var homeVM = HomeVM()
@@ -19,6 +20,7 @@ class HomeVC: UIViewController {
         
         self.title = "Home"
         
+        registerNib()
         setPropertiesForTableView()
         fetchData()
         addNotificationForRefreshingLocationsInfo()
@@ -28,6 +30,10 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+    }
+    
+    private func  registerNib() {
+        tableView.register(UINib(nibName: HomeTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: HomeTableViewCell.identifier)
     }
     
     private func setPropertiesForTableView() {
@@ -43,11 +49,18 @@ class HomeVC: UIViewController {
     }
     
     @objc func fetchData(){
+        
         self.homeVM.getAllLocations {
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                self.reloadTableView()
             }
         }
+    }
+    
+    func reloadTableView(){
+        self.placeHolderTextLabel.isHidden =  self.homeVM.selectedLocations.count > 0
+        self.tableView.isHidden =  !(self.homeVM.selectedLocations.count > 0)
+        self.tableView.reloadData()
     }
     
     @IBAction func helpButtonAction(_ sender: Any) {
@@ -74,7 +87,22 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return homeVM.selectedLocations.count > 0 ? true : false
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return homeVM.selectedLocations.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else { return UITableViewCell() }
+        
+        if homeVM.selectedLocations.count > indexPath.row {
+            let location = homeVM.selectedLocations[indexPath.row]
+            cell.configureCellWithLocationInfo(locationObject: location)
+        }
+        
+        return cell
     }
     
     internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -82,32 +110,11 @@ extension HomeVC : UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             
             homeVM.removeLocationAtIndex(at: indexPath) {
-                if homeVM.selectedLocations.count > 0 {
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }else{
-                    self.tableView.reloadData()
-                }
+                reloadTableView()
             }
-            
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeVM.selectedLocations.count > 0 ? homeVM.selectedLocations.count : 1
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let  cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "Cell")
-        
-        if homeVM.selectedLocations.count > indexPath.row {
-            let location = homeVM.selectedLocations[indexPath.row]
-            cell.textLabel?.text = location.locationAddress
-        }else{
-            cell.textLabel?.text = emptyLocationText
-        }
-        
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
