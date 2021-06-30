@@ -30,14 +30,28 @@ class CityDetailsVC: UIViewController {
         addSettingsBarButtonItem()
         getDataForTheSelectedLocation()
         registerNib()
+        addNotificationForRefreshingLocationsInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkForChangeInThePreference()
+    }
+    
+    private func addNotificationForRefreshingLocationsInfo() {
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getDataForTheSelectedLocation), name: NSNotification.Name(rawValue: "ReloadWeatherInfo"), object: nil)
     }
     
     private func  registerNib() {
         tableView.register(UINib(nibName: WeatherInfoCell.identifier, bundle: nil), forCellReuseIdentifier: WeatherInfoCell.identifier)
     }
     
-    func getDataForTheSelectedLocation(){
+    func checkForChangeInThePreference(){
+        cityDetailsVM.checkForChangeInThePreference()
+    }
+    
+    @objc func getDataForTheSelectedLocation(){
         activityIndicator.startAnimating()
         cityDetailsVM.getWeatherInfoForTheSelectedLocation(completionHandler: {
             DispatchQueue.main.async {
@@ -50,12 +64,17 @@ class CityDetailsVC: UIViewController {
     func addSettingsBarButtonItem(){
         //For righter button item
         let settingsButton = UIBarButtonItem(title: settingsButtonTitle , style: .plain, target: self, action: #selector(settingsButtonAction))
+        settingsButton.tintColor = .white
         self.navigationItem.rightBarButtonItem = settingsButton
     }
     
     @objc func settingsButtonAction() {
         let settingsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SettingsVC")
         navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

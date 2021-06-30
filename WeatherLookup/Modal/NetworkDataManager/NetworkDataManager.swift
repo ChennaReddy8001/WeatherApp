@@ -32,11 +32,11 @@ enum ParsingError: Error {
 class DataManager {
     
     let apiKey = "fae7190d7e6433ec3a45285ffcf55c86"
-    var unitType = "metric"
+//    var unitType = "metric"
     
     private func getURLEndPath(latitude : String, longitude : String) -> String {
-        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=" + unitType
-        //return "https://api.openweathermap.org/data/2.5/forecast?lat=0"  + "&lon=0"  + "&appid=" + apiKey + "&units=" + unitType
+        let settingsVM = SettingsVM()
+        return "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=" + settingsVM.getPreferenceOfUnitSystem()
 
     }
     
@@ -68,7 +68,6 @@ class DataManager {
                 
             } else {
                 let strResponse = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as String?
-                print("Response String :\(String(describing: strResponse))")
                 let dict =  strResponse?.convertToDictionary()
                 completionHandler(nil, .parsingFailedError(error: dict?["message"] as? String ?? ""))
             }

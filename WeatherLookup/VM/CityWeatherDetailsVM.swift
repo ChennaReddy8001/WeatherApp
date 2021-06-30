@@ -12,6 +12,8 @@ class CityWeatherDetailsVM {
     var dataManager = DataManager()
     var selectedLocation : LocationObject!
     var dataArray: [[WeatherObject]] = [[]]
+    
+    var currentPreferenceType  = metricsText
         
     func getWeatherInfoForTheSelectedLocation(completionHandler: @escaping () -> Void){
         
@@ -61,6 +63,19 @@ class CityWeatherDetailsVM {
             return nil
         }
         return nil
+    }
+    
+    func checkForChangeInThePreference(){
+        let settingsVM = SettingsVM()
+        let updatedPreferredType = settingsVM.getPreferenceOfUnitSystem()
+        if updatedPreferredType == currentPreferenceType {
+            print("No change")
+        }else{
+            print("There is change made")
+            currentPreferenceType = updatedPreferredType
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReloadWeatherInfo"), object: nil, userInfo: nil)
+
+        }
     }
 }
 

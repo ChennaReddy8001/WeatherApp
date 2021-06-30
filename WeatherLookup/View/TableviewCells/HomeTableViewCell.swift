@@ -27,4 +27,5 @@ class HomeTableViewCell: UITableViewCell {
     func configureCellWithLocationInfo(locationObject : LocationObject) {
         locationTitleTextLabel.text = locationObject.locationAddress ?? ""
     }
+    
 }

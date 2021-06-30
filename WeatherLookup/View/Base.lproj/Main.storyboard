@@ -16,6 +16,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ty5-uG-8YO">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.081064095923185642" green="0.20601685560039973" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZGa-Cl-psg"/>
@@ -67,11 +74,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="yE3-Yy-0DI">
                         <barButtonItem key="leftBarButtonItem" title="Help" id="Ipp-bK-Rfd">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="helpButtonAction:" destination="BYZ-38-t0r" id="bmW-9i-OGT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zCY-rp-utR">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addNewLocatonAction:" destination="BYZ-38-t0r" id="QhC-Br-D7w"/>
                             </connections>
@@ -206,18 +215,58 @@
                     <view key="view" contentMode="scaleToFill" id="dcA-rq-OwG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JKH-r3-Pqa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="619"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2g7-K1-FWz" id="6xN-jr-YPB"/>
+                                    <outlet property="delegate" destination="2g7-K1-FWz" id="TVt-Zm-Hdu"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqx-Na-WL9">
+                                <rect key="frame" x="20" y="762" width="374" height="53"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="hK7-oz-BMP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Reset locations bookmarked">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetAllLocationsButtonAction:" destination="2g7-K1-FWz" eventType="touchUpInside" id="bsm-3B-eS4"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cT2-NT-Bsc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fqx-Na-WL9" firstAttribute="top" secondItem="JKH-r3-Pqa" secondAttribute="bottom" constant="143" id="4ZW-DS-E4q"/>
+                            <constraint firstItem="cT2-NT-Bsc" firstAttribute="bottom" secondItem="fqx-Na-WL9" secondAttribute="bottom" constant="47" id="9wd-vh-d0D"/>
+                            <constraint firstItem="JKH-r3-Pqa" firstAttribute="trailing" secondItem="cT2-NT-Bsc" secondAttribute="trailing" id="Aay-CZ-Vp1"/>
+                            <constraint firstItem="JKH-r3-Pqa" firstAttribute="leading" secondItem="cT2-NT-Bsc" secondAttribute="leading" id="EUU-IU-u3q"/>
+                            <constraint firstItem="fqx-Na-WL9" firstAttribute="leading" secondItem="cT2-NT-Bsc" secondAttribute="leading" constant="20" id="LJq-ao-NSU"/>
+                            <constraint firstItem="cT2-NT-Bsc" firstAttribute="trailing" secondItem="fqx-Na-WL9" secondAttribute="trailing" constant="20" id="YQY-Fw-Pob"/>
+                            <constraint firstItem="JKH-r3-Pqa" firstAttribute="top" secondItem="dcA-rq-OwG" secondAttribute="top" id="aya-XX-7sa"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="JKH-r3-Pqa" id="sX7-bG-3yH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcp-VY-1Vo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2228" y="-145"/>
+            <point key="canvasLocation" x="2227.536231884058" y="-145.3125"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

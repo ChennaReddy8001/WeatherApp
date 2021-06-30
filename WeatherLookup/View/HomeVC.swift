@@ -46,8 +46,9 @@ class HomeVC: UIViewController {
     private func addNotificationForRefreshingLocationsInfo() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchData), name: NSNotification.Name(rawValue: "LocationAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.fetchData), name: NSNotification.Name(rawValue: "LocationsReset"), object: nil)
     }
-    
+        
     @objc func fetchData(){
         
         self.homeVM.getAllLocations {
@@ -73,6 +74,10 @@ class HomeVC: UIViewController {
         
         let addLocationVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddLocationVC")
         navigationController?.pushViewController(addLocationVC, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

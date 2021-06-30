@@ -22,15 +22,19 @@ class HomeVM {
     }
 
     //MARK:- core data methods
-    func removeAllLocations() {
-
+    func removeAllLocations(completionHandler: @escaping () -> Void) {
+        
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "LocationObject")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
             try writeContext.execute(deleteRequest)
+            completionHandler()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LocationsReset"), object: nil, userInfo: nil)
+            
         } catch let error as NSError {
             print(error.localizedDescription)
+            completionHandler()
         }
     }
     
