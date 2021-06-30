@@ -79,3 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIApplicationDelegate {
+
+    static var shared: Self {
+        return UIApplication.shared.delegate! as! Self
+    }
+}

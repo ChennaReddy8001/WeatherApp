@@ -11,80 +11,69 @@ import CoreData
 
 class HomeVM {
     
-    var selctedLocations  = [LocationObject]()
+    var selectedLocations  = [LocationObject]()
+    private let writeContext = AppDelegate.shared.persistentContainer.viewContext
     
-    func removeAllLocationsFromCoreData() {
-        
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
+    func removeLocationAtIndex(at indexPath: IndexPath, with completionHandler: () -> Void ) {
+        let location = selectedLocations[indexPath.row]
+        removeSelectedLocation(location: location)
+        selectedLocations.remove(at: indexPath.row)
+        completionHandler()
+    }
+
+    //MARK:- core data methods
+    func removeAllLocations() {
+
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "LocationObject")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
-            try managedContext.execute(deleteRequest)
+            try writeContext.execute(deleteRequest)
         } catch let error as NSError {
-            // TODO: handle the error
             print(error.localizedDescription)
         }
     }
     
-    func removeLocationFromCoreData(location : LocationObject) {
-        guard let appDelegate =
-                UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
+    func removeSelectedLocation(location : LocationObject) {
         
         let predicate = NSPredicate(format: "locationAddress == %@", location.locationAddress!)
-        var fetchedEntities = [LocationObject]()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationObject")
         fetchRequest.predicate = predicate
         do {
-            fetchedEntities = try! managedContext.fetch(fetchRequest) as! [LocationObject]
+            guard let fetchedEntities = try! writeContext.fetch(fetchRequest) as? [LocationObject] else { return }
             for sequence in fetchedEntities
             {
-                managedContext.delete(sequence)
+                writeContext.delete(sequence)
             }
             do {
-                try  managedContext.save()
+                try  writeContext.save()
             }catch {
                 print("err")
             }
         }
     }
     
-    func getAllLocations() {
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        let manageContent = appDelegate.persistentContainer.viewContext
+    func getAllLocations(completionHandler: @escaping () -> Void) {
+
         let fetchData = NSFetchRequest<NSFetchRequestResult>(entityName: "LocationObject")
         
         do {
-            let result = try manageContent.fetch(fetchData) as! [LocationObject]
-            print(result)
-            selctedLocations.removeAll()
+            let result = try writeContext.fetch(fetchData) as! [LocationObject]
+            selectedLocations.removeAll()
             for location in result {
-                selctedLocations.append(location)
+                selectedLocations.append(location)
             }
-            print(selctedLocations)
+            completionHandler()
         }catch {
-            print("err")
+            completionHandler()
         }
     }
     
     func addNewLocation(location : Location) {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        guard let locaitionObjectEntity = NSEntityDescription.entity(forEntityName: "LocationObject", in: writeContext) else {return}
         
-        let manageContent = appDelegate.persistentContainer.viewContext
-        
-        guard let locaitionObjectEntity = NSEntityDescription.entity(forEntityName: "LocationObject", in: manageContent) else {return}
-        
-        guard  let locationEntity = NSManagedObject(entity: locaitionObjectEntity, insertInto: manageContent) as? LocationObject else { return }
+        guard  let locationEntity = NSManagedObject(entity: locaitionObjectEntity, insertInto: writeContext) as? LocationObject else { return }
         
         locationEntity.locationName = location.name
         locationEntity.locationAddress = location.address
@@ -93,16 +82,17 @@ class HomeVM {
         locationEntity.locationAddedDate = Date()
         
         do{
-            try manageContent.save()
-            getAllLocations()
+            try writeContext.save()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LocationAdded"), object: nil, userInfo: nil)
             
-            
         }catch let error as NSError {
-            
             print("could not save . \(error), \(error.userInfo)")
         }
-        
     }
     
+    func getWriteContext() -> NSManagedObjectContext {
+        let appDelegate = AppDelegate.shared
+        let manageContent = appDelegate.persistentContainer.viewContext
+        return manageContent
+    }
 }
