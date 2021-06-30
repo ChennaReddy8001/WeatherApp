@@ -95,4 +95,9 @@ class HomeVM {
         let manageContent = appDelegate.persistentContainer.viewContext
         return manageContent
     }
+    
+    func getWeatherObjectAtIndexPath(){
+        let array = cityDetailsVM.dataArray[indexPath.section] as [WeatherObject]
+        let weatherObject = array[indexPath.row] as WeatherObject
+    }
 }

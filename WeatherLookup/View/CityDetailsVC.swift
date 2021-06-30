@@ -69,23 +69,16 @@ extension CityDetailsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if cityDetailsVM.dataArray.count > 0 {
-            let array = cityDetailsVM.dataArray[section] as [WeatherObject]
-            return array.count
-        }else{
-            return 1
-        }
+        return cityDetailsVM.numberOfrowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoCell.identifier, for: indexPath) as? WeatherInfoCell else { return UITableViewCell() }
         
-        if cityDetailsVM.dataArray.count > indexPath.section {
-            let array = cityDetailsVM.dataArray[indexPath.section] as [WeatherObject]
-            let weatherObject = array[indexPath.row] as WeatherObject
-            cell.dateAndTimeTextLabel.text = weatherObject.dateString
-            cell.configureCellWithWeathInfo(weatherObject: weatherObject)
+        
+        if let object = cityDetailsVM.getWeatherObjectAtIndexPath(indexPath: indexPath){
+            cell.configureCellWithWeathInfo(weatherObject: object)
         }else{
             cell.textLabel?.text = "No details are available."
         }
@@ -98,18 +91,7 @@ extension CityDetailsVC : UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return  cityDetailsVM.dataArray.count > 0 ? 50 : 0
-    }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if cityDetailsVM.dataArray.count > 0 {
-            let array = cityDetailsVM.dataArray[section] as [WeatherObject]
-            if array.count > 0 {
-                let weatherObject = array[0] as WeatherObject
-                return weatherObject.dateInDateFormat.asString(style: .full)
-            }
-        }
-        return ""
+        return cityDetailsVM.getTitleForHeaderInSection(section: section)
     }
 }

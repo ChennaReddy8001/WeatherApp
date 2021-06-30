@@ -9,7 +9,7 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let emptyLocationText = "Please add a location by clicking on the + symbol"
+    let navigatonBarTitle = "Home"
     @IBOutlet weak var placeHolderTextLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,7 +18,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Home"
+        self.title = navigatonBarTitle
         
         registerNib()
         setPropertiesForTableView()
