@@ -34,8 +34,11 @@ class WeatherInfoCell: UITableViewCell {
         humidityValueLabel.text = weatherObject.humidity
         rainChancesValueLabel.text = weatherObject.rainChances
         windInfoValueLabel.text = weatherObject.windInfo
-        dateAndTimeTextLabel.text = weatherObject.dateString
-
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a"
+        let hourString = formatter.string(from:weatherObject.dateInDateFormat)
+        dateAndTimeTextLabel.text = hourString
     }
     
 }
